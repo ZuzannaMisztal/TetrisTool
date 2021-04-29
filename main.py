@@ -290,9 +290,15 @@ class GameFor2(Game):
                 if self.right_exists:
                     if self.is_valid_position(self.tetromino, self.block_grid, adj_y=1):
                         self.tetromino.move_down()
+                    else:
+                        self.blend_tetromino(self.tetromino, self.block_grid)
+                        self.right_exists = False
                 if self.left_exists:
                     if self.is_valid_position(self.tetromino_left, self.block_grid_left, adj_y=1):
                         self.tetromino_left.move_down()
+                    else:
+                        self.blend_tetromino(self.tetromino_left, self.block_grid_left)
+                        self.left_exists = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -330,14 +336,6 @@ class GameFor2(Game):
                         if event.key == pygame.K_t:
                             while self.is_valid_position(self.tetromino_left, self.block_grid_left, adj_y=1):
                                 self.tetromino_left.move_down()
-            if self.right_exists:
-                if not self.is_valid_position(self.tetromino, self.block_grid, adj_y=1):
-                    self.blend_tetromino(self.tetromino, self.block_grid)
-                    self.right_exists = False
-            if self.left_exists:
-                if not self.is_valid_position(self.tetromino_left, self.block_grid_left, adj_y=1):
-                    self.blend_tetromino(self.tetromino_left, self.block_grid_left)
-                    self.left_exists = False
             self.clear_lines()
             self.draw()
             CLOCK.tick(FPS)

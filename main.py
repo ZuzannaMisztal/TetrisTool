@@ -345,8 +345,10 @@ class GameFor2(Game):
     def show_results(self):
         self.game_display.fill(BLACK)
         font = pygame.font.SysFont('monospace', 20)
-        text1 = font.render(f"Congratulations!!! You cleared {self.lines_cleared} lines", True, WHITE)
+        text1 = font.render(f"Left player cleared {self.lines_cleared_left} lines", True, WHITE)
         self.game_display.blit(text1, [60, MAP_HEIGHT/2 - 60])
+        text1 = font.render(f"Right player cleared {self.lines_cleared} lines", True, WHITE)
+        self.game_display.blit(text1, [60, MAP_HEIGHT/2 - 30])
         text2 = font.render("Press b to go back to menu", True, WHITE)
         self.game_display.blit(text2, [60, MAP_HEIGHT / 2])
         pygame.display.update()
@@ -369,7 +371,6 @@ class GameFor2(Game):
         self.draw_board(self.block_grid_left, 0)
         if self.left_exists:
             self.draw_tetromino(self.tetromino_left, 0)
-        #self.draw_tetromino(self.tetromino_left, 0)
         self.draw_next_tetromino(BOARD_WIDTH * BLOCK_SIZE + 20)
         self.print_score()
         pygame.display.update()

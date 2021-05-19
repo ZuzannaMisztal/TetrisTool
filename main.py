@@ -141,6 +141,11 @@ class Game:
             if self.count % (self.falling_speed[self.difficulty + self.level - 1]) == 0:
                 if self.is_valid_position(self.tetromino, self.block_grid, adj_y=1):
                     self.tetromino.move_down()
+                else:
+                    self.blend_tetromino(self.tetromino, self.block_grid)
+                    self.replace_tetromino()
+                    if not self.is_valid_position(self.tetromino, self.block_grid):
+                        self.game_over = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     shut_down()
@@ -160,11 +165,6 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         while self.is_valid_position(self.tetromino, self.block_grid, adj_y=1):
                             self.tetromino.move_down()
-            if not self.is_valid_position(self.tetromino, self.block_grid, adj_y=1):
-                self.blend_tetromino(self.tetromino, self.block_grid)
-                self.replace_tetromino()
-                if not self.is_valid_position(self.tetromino, self.block_grid):
-                    self.game_over = True
             self.clear_lines()
             self.draw()
             CLOCK.tick(FPS)
